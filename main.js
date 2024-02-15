@@ -14,9 +14,16 @@
 
 let taskInput = document.getElementById("taskInput");
 let addBtn = document.getElementById("addBtn");
+let tabs = document.querySelectorAll(".taskTabs p")
 let taskList = [];
+let mode = 'all';
+let filterList = [];
 
 addBtn.addEventListener("click", addTask);
+
+for(let i=0; i<tabs.length; i++){
+    tabs[i].addEventListener("click", function(event){filter(event)});
+}
 
 function addTask(){
     let task = {
@@ -31,22 +38,34 @@ function addTask(){
 }
 
 function render(){
+    // 1. 내가 선택한 탭에 따라서
+    // 2. 리스트를 달리 보여준다
+    // all taskList 
+    // going, done flterList
+
+    let list = [];
+    if(mode === "all"){
+        list = taskList;
+    }else{
+        list = filterList;
+    }
+
     let resultHTML = '';
-    for(let i = 0; i < taskList.length; i++){
-        if(taskList[i].isComplete == true){
+    for(let i = 0; i < list.length; i++){
+        if(list[i].isComplete == true){
             resultHTML += `<div class="task">
-            <div class="task-done">${taskList[i].taskContent}</div>
+            <div class="task-done">${list[i].taskContent}</div>
             <div>
-                <button onclick="toggleComplete('${taskList[i].id}')">Check</button>
-                <button onclick="deleteTask('${taskList[i].id}')">Delete</button>
+                <button onclick="toggleComplete('${list[i].id}')">Check</button>
+                <button onclick="deleteTask('${list[i].id}')">Delete</button>
             </div>
         </div>`
         }else{
             resultHTML += `<div class="task">
-        <div>${taskList[i].taskContent}</div>
+        <div>${list[i].taskContent}</div>
         <div>
-            <button onclick="toggleComplete('${taskList[i].id}')">Check</button>
-            <button onclick="deleteTask('${taskList[i].id}')">Delete</button>
+            <button onclick="toggleComplete('${list[i].id}')">Check</button>
+            <button onclick="deleteTask('${list[i].id}')">Delete</button>
         </div>
     </div>`;
         }
@@ -79,6 +98,33 @@ function deleteTask(id){
     }
     console.log(taskList);
     render();
+}
+
+function filter(event){
+    mode = event.target.id;
+    filterList = [];
+
+    if(mode === "all"){
+        // 전체리스트를 보여준다
+        render();
+    }else if(mode === "going"){
+        // 진행중인 리스트를 보여준다 (task.isComplete: false >> 진행중)
+        for(let i=0; i<taskList.length; i++){
+            if(taskList[i].isComplete === false){
+                filterList.push(taskList[i]);
+            }
+        }
+        render();
+        console.log("진행중", filterList)
+    }else if(mode === "done"){
+        // 끝나는 케이스를 보여준다 (task.isComplete: true)
+        for(let i=0; i<taskList.length; i++){
+            if(taskList[i].isComplete === true){
+                filterList.push(taskList[i]);
+            }
+        }
+        render();
+    }
 }
 
 function randomIDGenerate(){

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@200;300;400;500;600;700;800&family=Noto+Sans+KR:wght@100..900&family=Protest+Riot&display=swap');
+
 *{
     margin: 0;
     padding: 0;
@@ -13,10 +15,25 @@ a{
 p{
     margin-bottom: 0;
 }
+h1{
+    font-family: "Protest Riot", sans-serif;
+    margin-bottom: 20px;
+    font-size: 60px;
+    color: #B34ACD;
+}
 .container{
     background-color: #fff;
     min-height: 100vh;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    padding: 100px 30px;
+}
+
+.inputArea{
+    margin-bottom: 20px;
+}
+.inputArea input[type="text"]{
+    border: 1px solid #EABAF6;
+    color: #B34ACD;
 }
 
 .taskArea{
@@ -29,6 +46,7 @@ p{
     box-sizing: border-box;
     align-items: center;
     position: relative;
+    cursor: pointer;
 }
 
 .taskTabs p:not(:first-child){
@@ -50,6 +68,26 @@ p{
     padding: 15px 10px;
     background-color: #f8f8f8;
 }
+
+.task button{
+    border: 1px solid #EABAF6;
+    background-color: transparent;
+    padding: 5px;
+    box-sizing: border-box;
+    color: #EABAF6;
+}
+.task button:hover{
+    color: #B34ACD;
+    border: 1px solid #B34ACD;
+}
+
 .task-done{
     text-decoration: line-through;
+}
+#addBtn{
+    padding: 0 5px;
+    box-sizing: border-box;
+    background-color: transparent;
+    border: 1px solid #EABAF6;
+    color: #EABAF6;
 }
